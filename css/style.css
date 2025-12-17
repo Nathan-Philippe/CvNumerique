@@ -127,7 +127,7 @@ section {
     text-align: center;
     color: var(--text-light);
     margin-bottom: 4rem;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
 /* --- HERO --- */
@@ -233,12 +233,13 @@ section {
 }
 
 .card-logo {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
     background: #f8f9fa;
     border-radius: 12px;
-    padding: 5px;
+    padding: 8px;
+    flex-shrink: 0;
 }
 
 .card-content { flex: 1; }
@@ -275,8 +276,10 @@ li::before { content: "•"; color: var(--primary); font-weight: bold; position:
 
 /* --- COMPÉTENCES (Style Bulles comme V1) --- */
 .skills-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    /* On passe en Flexbox pour gérer le centrage intelligent */
+    display: flex;
+    flex-wrap: wrap; /* Permet de passer à la ligne */
+    justify-content: center; /* Centre les éléments sur la ligne (les 2 du bas seront centrés) */
     gap: 2rem;
 }
 
@@ -288,6 +291,13 @@ li::before { content: "•"; color: var(--primary); font-weight: bold; position:
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border: 1px solid rgba(0,0,0,0.05);
     transition: 0.3s;
+
+    /* --- NOUVEAUX RÉGLAGES DE TAILLE --- */
+    /* Largeur de base : environ 30% pour en faire tenir 3 sur la ligne */
+    flex: 1 1 300px;
+
+    /* On empêche les boîtes de devenir trop larges (sinon les 2 du bas prennent toute la place) */
+    max-width: 350px;
 }
 
 .skill-box:hover {
@@ -334,13 +344,18 @@ li::before { content: "•"; color: var(--primary); font-weight: bold; position:
 }
 
 .project-card {
+    min-width: 320px;
+    max-width: 320px;
     background: white;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    transition: 0.3s;
+    transition: all 0.3s ease; /* On met 'all' pour que tout soit fluide */
     display: flex;
     flex-direction: column;
+
+    /* --- L'AJOUT EST ICI --- */
+    cursor: pointer;
 }
 
 .project-card:hover { transform: translateY(-10px); }
@@ -562,3 +577,344 @@ li::before { content: "•"; color: var(--primary); font-weight: bold; position:
     padding: 30px;       /* Ajoute de l'espace autour pour la "rétrécir" */
     background: #f0f4f8; /* Un fond gris/bleu très clair pour faire propre */
 }
+
+/* --- Correction du scroll avec la navbar fixe --- */
+html {
+    scroll-padding-top: -140px; /* Ajuste cette valeur selon la hauteur de ta navbar + un peu d'espace */
+}
+
+/* Si ça ne marche pas sur certains navigateurs, on force sur les sections */
+section {
+    scroll-margin-top: -140px;
+}
+/* --- LIENS ENTREPRISES (Expériences) --- */
+.company-link {
+    color: var(--primary); /* Ta couleur bleue */
+    font-weight: 600;
+    text-decoration: none; /* Pas de soulignement par défaut */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.company-link:hover {
+    color: var(--secondary); /* Devient plus foncé au survol */
+    text-decoration: underline; /* Souligne pour montrer le clic */
+}
+
+/* Petite icône de lien externe */
+.company-link i {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* --- LANGUAGE SWITCHER --- */
+.language-switcher {
+    position: absolute;
+    top: 20px;
+    left: 20px; /* En haut à gauche */
+    z-index: 1001;
+}
+
+.lang-btn {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(67, 97, 238, 0.2);
+    border-radius: 30px;
+    padding: 0.6rem 1.2rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.lang-btn:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Cache le bouton langue sur mobile si l'écran est trop petit,
+   ou ajuste la position si nécessaire */
+@media (max-width: 600px) {
+    .language-switcher {
+        top: 80px; /* Descend un peu pour pas gêner la navbar sur mobile */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* --- GESTION DES PETITS ÉCRANS (Responsive) --- */
+@media (max-width: 1250px) {
+
+    /* 1. On cache l'heure (L'utilisateur l'a déjà sur son écran)
+       Cela libère beaucoup de place en haut à droite */
+    .datetime-display {
+        display: none;
+    }
+
+    /* 2. On déplace le bouton Langue en BAS à GAUCHE
+       Comme ça, il ne touche plus jamais la barre de navigation */
+    .language-switcher {
+        top: auto;      /* On annule la position 'haut' */
+        bottom: 20px;   /* On le met en bas */
+        left: 20px;     /* À gauche */
+        /* On s'assure qu'il passe au-dessus du reste si besoin */
+        z-index: 1002;
+    }
+
+    /* 3. On ajuste la navbar pour qu'elle soit bien centrée */
+    .navbar {
+        width: 95%; /* Elle prend presque toute la largeur */
+        top: 15px;  /* On la remonte un tout petit peu */
+    }
+}
+
+
+/* --- MODAL SYSTEM & CURTAIN EFFECT --- */
+
+/* 1. LE RIDEAU DE TRANSITION */
+.curtain-layer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: var(--primary);
+    z-index: 10000;
+    transform: translateY(100%);
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    pointer-events: none;
+}
+
+.curtain-layer.cover {
+    transform: translateY(0);
+}
+
+/* 2. LA FENÊTRE MODALE PLEIN ÉCRAN */
+.project-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #ffffff;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+}
+
+.project-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* LAYOUT GÉNÉRAL */
+.modal-layout {
+    display: grid;
+    /* On garde 45% pour les images, 55% pour le texte */
+    grid-template-columns: 45% 55%;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* Fond blanc uniforme pour tout le monde */
+}
+
+/* --- COLONNE GAUCHE : GALERIE --- */
+.modal-gallery-scroll {
+    /* CORRECTION ICI : Fond blanc (comme à droite) pour effacer la séparation */
+    background: #ffffff;
+
+    height: 100vh;
+    overflow-y: auto;
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px; /* Espace entre les images */
+    align-items: center;
+
+    scrollbar-width: none;
+}
+.modal-gallery-scroll::-webkit-scrollbar { display: none; }
+
+/* STYLE DES IMAGES */
+.modal-img-full {
+    width: 80%;
+    max-height: 450px; /* Hauteur max pour qu'elles ne soient pas géantes */
+    object-fit: cover;
+    border-radius: 15px;
+
+    /* Une ombre douce sur l'image elle-même pour qu'elle ressorte sur le blanc */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.modal-img-full:hover {
+    transform: scale(1.02);
+}
+
+/* --- COLONNE DROITE : INFOS FIXES --- */
+.modal-details {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff; /* Fond blanc */
+
+    /* CORRECTION ICI : J'ai supprimé le box-shadow qui créait la ligne */
+    box-shadow: none;
+
+    position: relative;
+}
+
+/* Bouton Fermer */
+.close-btn-full {
+    position: absolute;
+    top: 40px; right: 40px;
+    background: transparent;
+    border: 2px solid var(--text);
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text);
+}
+.close-btn-full:hover {
+    background: var(--text);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.modal-big-title {
+    font-size: 3rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--primary);
+}
+
+.modal-text-content {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.8;
+    margin: 2rem 0;
+    text-align: justify;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 900px) {
+    .modal-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .modal-details {
+        order: 1;
+        padding: 30px 20px;
+        height: auto;
+        border-bottom: none; /* Pas de ligne en bas non plus */
+    }
+
+    .modal-gallery-scroll {
+        order: 2;
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .modal-big-title {
+        font-size: 2rem;
+    }
+
+    .close-btn-full {
+        top: 20px; right: 20px;
+        width: 40px; height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+/* BLOQUER LE SCROLL DU SITE */
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* --- BOUTONS MODALE --- */
+.modal-btns {
+    display: flex;
+    gap: 15px; /* Espace entre les deux boutons */
+    margin-top: 2rem; /* Espace au-dessus */
+}
+
+/* Style spécifique pour le bouton contour (GitHub) */
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* --- 1. LE BADGE CATÉGORIE (Projet Perso, etc.) --- */
+#fullSubtitle {
+    /* Pour qu'il ne prenne pas toute la largeur */
+    display: inline-block;
+    width: fit-content;
+
+    /* Nouvelle couleur (Rose/Rouge pour différencier du Bleu) */
+    background: rgba(247, 37, 133, 0.1); /* Fond rose très léger */
+    color: var(--accent); /* Texte rose vif (#f72585) */
+    border: 1px solid rgba(247, 37, 133, 0.2); /* Légère bordure */
+
+    /* Style du texte */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px; /* Espacement des lettres */
+    font-size: 0.75rem; /* Un peu plus petit */
+
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem; /* Espace sous le badge avant le titre */
+}
+
+/* --- 2. ESPACEMENT DES TAGS (Java, MVC...) --- */
+#fullTags {
+    display: flex;
+    flex-wrap: wrap; /* Permet de passer à la ligne si trop de tags */
+
+    /* C'est ICI qu'on décolle les étiquettes */
+    gap: 12px;
+
+    margin-bottom: 2rem;
+}
+
+/* On s'assure que les tags eux-mêmes restent bleus */
+#fullTags .tech-tag {
+    /* On garde ton style bleu existant, on s'assure juste qu'il n'y a pas de marge bizarre */
+    margin: 0;
+}
+/* FORCE LES BOUTONS À ÊTRE CLIQUABLES */
+.modal-btns {
+    position: relative;
+    z-index: 10002; /* Au dessus du rideau (10000) */
+    pointer-events: auto; /* Force le clic */
+}
+
