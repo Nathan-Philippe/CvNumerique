@@ -17,6 +17,27 @@
 </div>
 
 <div class="datetime-display" id="datetime"></div>
+<div id="location-badge" style="
+    position: absolute;
+    top: 70px;            /* Juste sous la date */
+    right: 20px;          /* Aligné à droite */
+    z-index: 90;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 12px;
+    border-radius: 50px;
+    border: 1px solid var(--primary);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: none;        /* Caché tant qu'il n'y a pas d'info */
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(5px);
+">
+    <i class="fas fa-map-marker-alt" style="color: #e63946;"></i>
+    <span id="current-location">Chargement...</span>
+</div>
 
 <nav class="navbar">
     <ul>
@@ -371,6 +392,7 @@
         </div>
     </div>
 </div>
+
 <script>
     // 1. GADGET : TIME (Changed locale to English)
     function updateDateTime() {
@@ -631,6 +653,37 @@
             curtain.classList.remove('cover');
         }, 800);
     }
+
+    // 7. LOCALISATION SÉCURISÉE (JSONBIN)
+    function updateLocation() {
+        // 🔴 COLLE TON BIN ID ICI (Ex: 65a12b...)
+        const binId = '6943dd3243b1c97be9f6da61';
+
+        // On ajoute /latest pour avoir la dernière version
+        fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`)
+            .then(response => {
+                if (!response.ok) throw new Error("Erreur réseau");
+                return response.json();
+            })
+            .then(data => {
+                // IMPORTANT : Chez JSONBin, la donnée est dans data.record
+                const ville = data.record.location;
+
+                const locElement = document.getElementById('current-location');
+                if(locElement && ville) {
+                    locElement.textContent = ville;
+                    document.getElementById('location-badge').style.display = 'flex';
+                }
+            })
+            .catch(error => {
+                console.error('Erreur loc:', error);
+                // Si ça plante, on affiche une valeur par défaut propre
+                document.getElementById('current-location').textContent = "Lille, France";
+                document.getElementById('location-badge').style.display = 'flex';
+            });
+    }
+    // On lance la récupération
+    updateLocation();
 </script>
 </body>
 </html>

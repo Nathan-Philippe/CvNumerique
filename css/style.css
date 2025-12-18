@@ -918,3 +918,9 @@ body.no-scroll {
     pointer-events: auto; /* Force le clic */
 }
 
+@media (max-width: 900px) {
+    .datetime-display,
+    #location-badge {
+        display: none !important;
+    }
+}
