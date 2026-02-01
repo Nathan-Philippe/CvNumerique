@@ -125,6 +125,7 @@
                 <span class="tech-tag">C</span>
                 <span class="tech-tag">HTML5</span>
                 <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JSP</span>
                 <span class="tech-tag">JavaScript</span>
             </div>
         </div>
@@ -252,6 +253,19 @@
                     </div>
                     <h3 style="margin-bottom:0.5rem;">The Labyrinth</h3>
                     <p>Maze game with procedural generation and JavaFX graphical interface.</p>
+                </div>
+            </div>
+
+            <div class="project-card" onclick="openProject('declic')">
+                <img src="assets/declic.png" alt="Declic" class="project-img">
+                <div class="project-info">
+                    <div style="margin-bottom:0.5rem;">
+                        <span class="tech-tag" style="font-size:0.7rem;">C#</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Unity</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Personal Project</span>
+                    </div>
+                    <h3 style="margin-bottom:0.5rem;">Déclic</h3>
+                    <p>2D adventure game</p>
                 </div>
             </div>
 
@@ -418,7 +432,6 @@
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
             hour: '2-digit', minute: '2-digit', second: '2-digit'
         };
-        // Use 'en-GB' for Day Month Year format, or 'en-US' for Month Day Year
         const dateTimeString = now.toLocaleDateString('en-GB', options);
         const dtElement = document.getElementById('datetime');
         if(dtElement) dtElement.textContent = dateTimeString;
@@ -553,6 +566,16 @@
             github:"",
             images: ["assets/labyrinthe.png", "assets/biome_plaine.png"]
         },
+        'declic': {
+            title: "Déclic",
+            subtitle: "Personal Project (Unity)",
+            tags: ["Unity", "C#", "2D", "Teamwork"],
+            desc: "A party, bugs, and an investigator: welcome to Déclic! Created in just 24h on Unity by a team of 6, this adventure game plunges you into a panic-stricken village. Explore, talk to the villagers, and triumph over intense mini-games to fix the party before it's too late.<br><br><strong>My role:</strong> Design and development of the various mini-games.",
+            site: "",
+            github: "",
+            download: "https://trixprod.itch.io/declic000",
+            images: ["assets/declic.png","assets/declic1.png","assets/declic2.png","assets/declic3.png","assets/declic4.png"]
+        },
         'ecoflix': {
             title: "Ecoflix",
             subtitle: "Academic Project",
@@ -614,32 +637,59 @@
         setTimeout(() => {
             document.getElementById('fullTitle').textContent = data.title;
             document.getElementById('fullSubtitle').textContent = data.subtitle;
-            document.getElementById('fullDesc').textContent = data.desc;
 
+            // 🔴 CHANGEMENT ICI : innerHTML pour accepter les <br> et <strong>
+            document.getElementById('fullDesc').innerHTML = data.desc;
+
+            // --- GESTION DES BOUTONS (Version Anglaise) ---
             const btnSite = document.getElementById('modalLinkSite');
             const btnGithub = document.getElementById('modalLinkGithub');
 
+            // 1. Gestion du bouton "Live Demo"
             if (data.site && data.site !== "") {
                 btnSite.style.display = "inline-flex";
                 btnSite.href = data.site;
+                // On s'assure que le texte est en anglais
+                btnSite.innerHTML = 'Live Demo <i class="fas fa-external-link-alt"></i>';
             } else {
                 btnSite.style.display = "none";
             }
 
+            // 2. Gestion du bouton Secondaire (GitHub OU Download)
+
+            // Reset par défaut (Texte Anglais)
+            btnGithub.innerHTML = 'Source Code <i class="fab fa-github"></i>';
+            btnGithub.removeAttribute('download');
+
             if (data.github && data.github !== "") {
+                // CAS GITHUB
                 btnGithub.style.display = "inline-flex";
                 btnGithub.href = data.github;
+
+            } else if (data.download && data.download !== "") {
+                // CAS DOWNLOAD
+                btnGithub.style.display = "inline-flex";
+                btnGithub.href = data.download;
+                // Texte en Anglais
+                btnGithub.innerHTML = 'Download <i class="fas fa-download"></i>';
+
+                if(!data.download.startsWith('http')) {
+                    btnGithub.setAttribute('download', '');
+                }
             } else {
                 btnGithub.style.display = "none";
             }
+            // ------------------------------------------------
 
+            // Tags
             const tagsDiv = document.getElementById('fullTags');
             tagsDiv.innerHTML = data.tags.map(t => `<span class="tech-tag">${t}</span>`).join('');
 
+            // Galerie
             const gallery = document.getElementById('fullGallery');
             gallery.innerHTML = "";
             data.images.forEach(img => {
-                gallery.innerHTML += `<img src="${img}" class="modal-img-full" alt="Project">`;
+                gallery.innerHTML += `<img src="${img}" class="modal-img-full" alt="Project Image">`;
             });
             gallery.scrollTop = 0;
 
@@ -653,6 +703,7 @@
 
         }, 800);
     }
+
     function closeFullModal() {
         const curtain = document.getElementById('curtain');
         const modal = document.getElementById('fullProjectModal');
@@ -673,17 +724,14 @@
 
     // 7. LOCALISATION SÉCURISÉE (JSONBIN)
     function updateLocation() {
-        // 🔴 COLLE TON BIN ID ICI (Ex: 65a12b...)
         const binId = '6943dd3243b1c97be9f6da61';
 
-        // On ajoute /latest pour avoir la dernière version
         fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`)
             .then(response => {
                 if (!response.ok) throw new Error("Erreur réseau");
                 return response.json();
             })
             .then(data => {
-                // IMPORTANT : Chez JSONBin, la donnée est dans data.record
                 const ville = data.record.location;
 
                 const locElement = document.getElementById('current-location');
@@ -694,12 +742,10 @@
             })
             .catch(error => {
                 console.error('Erreur loc:', error);
-                // Si ça plante, on affiche une valeur par défaut propre
                 document.getElementById('current-location').textContent = "Lille, France";
                 document.getElementById('location-badge').style.display = 'flex';
             });
     }
-    // On lance la récupération
     updateLocation();
 </script>
 </body>

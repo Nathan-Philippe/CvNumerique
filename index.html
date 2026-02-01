@@ -259,7 +259,8 @@
                 <img src="assets/declic.png" alt="Declic" class="project-img">
                 <div class="project-info">
                     <div style="margin-bottom:0.5rem;">
-                        <span class="tech-tag" style="font-size:0.7rem;">Java</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">C#</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Unity</span>
                         <span class="tech-tag" style="font-size:0.7rem;">Projet Personnel</span>
                     </div>
                     <h3 style="margin-bottom:0.5rem;">Déclic</h3>
@@ -499,7 +500,6 @@
     // 5. SMOOTH SCROLL (CORRIGÉ POUR LA MODALE)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            // CONDITION : On n'applique le smooth scroll QUE si ce n'est pas un bouton de la modale
             if (this.classList.contains('btn')) return;
 
             e.preventDefault();
@@ -578,7 +578,6 @@
             subtitle: "Projet Universitaire",
             tags: ["Java","JavaFX", "HTML","CSS","Algorithme", "MVC"],
             desc: "LABYRINTHE – Défis et réflexion. Explorez des labyrinthes générés dynamiquement dans ce jeu de réflexion en vue 2D. Plusieurs modes de jeu s’offrent à vous : progression, labyrinthe du jour et contre-la-montre, chacun proposant ses propres règles et contraintes. L’objectif est simple en apparence : trouver la sortie, mais la difficulté augmente avec la taille, la densité des murs et la pression du temps. Développé en Java avec JavaFX à l’IUT de Lille par groupe de 5 étudiants en 2 mois, ce projet met l’accent sur la génération procédurale, la stratégie de déplacement et la performance du joueur.",
-            // AJOUT DES DEUX LIENS ICI :
             site: "https://labyrintheweb.netlify.app/",
             github:"",
             images: ["assets/labyrinthe.png", "assets/biome_plaine.png"]
@@ -586,9 +585,9 @@
         'declic': {
             title: "Déclic",
             subtitle: "Projet Personnel",
-            tags: ["Unity", "C#", "2D"],
+            tags: ["Unity", "C#", "2D", "Travail d'équipe"],
             desc: "Une fête, des bugs et un enquêteur : bienvenue dans Déclic ! Créé en seulement 24h sur Unity par une équipe de 6 personnes, ce jeu d'aventure vous plonge au cœur d'un village en panique. Explorez, parlez aux habitants et triomphez de mini-jeux intenses pour réparer la fête avant qu'il ne soit trop tard. <br><br><strong>Mon rôle :</strong> Conception et développement des différents mini-jeux.",
-            site: "", // Mets un lien si tu en as un, sinon laisse vide
+            site: "",
             github: "",
             download: "https://trixprod.itch.io/declic000",
             images: ["assets/declic.png","assets/declic1.png","assets/declic2.png","assets/declic3.png","assets/declic4.png"]
@@ -647,7 +646,6 @@
         const curtain = document.getElementById('curtain');
         const modal = document.getElementById('fullProjectModal');
 
-        // --- SÉCURITÉ : On s'assure que le rideau est bien au-dessus au début ---
         curtain.style.zIndex = 10000;
 
         // 1. RIDEAU MONTE
@@ -674,28 +672,22 @@
 
             // 2. Gestion du bouton Secondaire (GitHub OU Télécharger)
 
-            // D'abord, on remet le style "GitHub" par défaut (pour les autres projets)
             btnGithub.innerHTML = 'Code Source <i class="fab fa-github"></i>';
-            btnGithub.removeAttribute('download'); // On enlève l'attribut de téléchargement par défaut
+            btnGithub.removeAttribute('download');
 
             if (data.github && data.github !== "") {
-                // CAS CLASSIQUE : C'est un lien GitHub
                 btnGithub.style.display = "inline-flex";
                 btnGithub.href = data.github;
 
             } else if (data.download && data.download !== "") {
-                // CAS TÉLÉCHARGEMENT : On transforme le bouton
                 btnGithub.style.display = "inline-flex";
                 btnGithub.href = data.download;
-                // On change le texte et l'icône
                 btnGithub.innerHTML = 'Télécharger <i class="fas fa-download"></i>';
 
-                // Si le lien est un fichier local (ex: .zip), on force le téléchargement
                 if(!data.download.startsWith('http')) {
                     btnGithub.setAttribute('download', '');
                 }
             } else {
-                // RIEN : On cache le bouton
                 btnGithub.style.display = "none";
             }
 
@@ -718,7 +710,6 @@
             curtain.classList.remove('cover');
 
             // --- LE FIX EST ICI ---
-            // On attend la fin de l'animation de descente (800ms)
             // Puis on envoie le rideau en arrière-plan (-1) pour qu'il ne gêne pas les clics
             setTimeout(() => {
                 curtain.style.zIndex = -1;
@@ -731,13 +722,11 @@
         const curtain = document.getElementById('curtain');
         const modal = document.getElementById('fullProjectModal');
 
-        // --- LE FIX EST ICI ---
         // On remet le rideau au premier plan AVANT de lancer l'animation
         curtain.style.display = "block";
         curtain.style.zIndex = 10000;
 
         // 1. LE RIDEAU REMONTE POUR CACHER LA MODAL
-        // On met un tout petit délai (10ms) pour que le navigateur prenne en compte le changement de z-index
         setTimeout(() => {
             curtain.classList.add('cover');
         }, 10);
@@ -751,21 +740,17 @@
             curtain.classList.remove('cover');
         }, 800); // 800ms + le petit délai
     }
-    // J'ai supprimé tout le bloc "setInterval" (Autoplay), donc ça ne tournera plus tout seul.
 
     // 7. LOCALISATION SÉCURISÉE (JSONBIN)
     function updateLocation() {
-        // 🔴 COLLE TON BIN ID ICI (Ex: 65a12b...)
         const binId = '6943dd3243b1c97be9f6da61';
 
-        // On ajoute /latest pour avoir la dernière version
         fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`)
             .then(response => {
                 if (!response.ok) throw new Error("Erreur réseau");
                 return response.json();
             })
             .then(data => {
-                // IMPORTANT : Chez JSONBin, la donnée est dans data.record
                 const ville = data.record.location;
 
                 const locElement = document.getElementById('current-location');
@@ -776,12 +761,10 @@
             })
             .catch(error => {
                 console.error('Erreur loc:', error);
-                // Si ça plante, on affiche une valeur par défaut propre
                 document.getElementById('current-location').textContent = "Lille, France";
                 document.getElementById('location-badge').style.display = 'flex';
             });
     }
-    // On lance la récupération
     updateLocation();
 </script>
 </body>
