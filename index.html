@@ -124,6 +124,7 @@
                 <span class="tech-tag">C</span>
                 <span class="tech-tag">HTML5</span>
                 <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JSP</span>
                 <span class="tech-tag">JavaScript</span>
             </div>
         </div>
@@ -254,13 +255,24 @@
                 </div>
             </div>
 
+            <div class="project-card" onclick="openProject('declic')">
+                <img src="assets/declic.png" alt="Declic" class="project-img">
+                <div class="project-info">
+                    <div style="margin-bottom:0.5rem;">
+                        <span class="tech-tag" style="font-size:0.7rem;">Java</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Projet Personnel</span>
+                    </div>
+                    <h3 style="margin-bottom:0.5rem;">Déclic</h3>
+                    <p>Jeu d'aventure en 2D</p>
+                </div>
+            </div>
 
             <div class="project-card" onclick="openProject('neontag')">
                 <img src="assets/neon.png" alt="Neon" class="project-img">
                 <div class="project-info">
                     <div style="margin-bottom:0.5rem;">
                         <span class="tech-tag" style="font-size:0.7rem;">HTML/CSS/JS</span>
-                        <span class="tech-tag" style="font-size:0.7rem;">Projet Perso</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Projet Personnel</span>
                     </div>
                     <h3 style="margin-bottom:0.5rem;">NeonTag</h3>
                     <p>Jeu 1vs1 en 2D</p>
@@ -285,7 +297,7 @@
                 <div class="project-info">
                     <div style="margin-bottom:0.5rem;">
                         <span class="tech-tag" style="font-size:0.7rem;">Python</span>
-                        <span class="tech-tag" style="font-size:0.7rem;">Projet Perso</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Projet Personnel</span>
                     </div>
                     <h3 style="margin-bottom:0.5rem;">Solveur Sudoku</h3>
                     <p>Algorithme capable de résoudre n'importe quelle grille de Sudoku.</p>
@@ -571,6 +583,16 @@
             github:"",
             images: ["assets/labyrinthe.png", "assets/biome_plaine.png"]
         },
+        'declic': {
+            title: "Déclic",
+            subtitle: "Projet Personnel",
+            tags: ["Unity", "C#", "2D"],
+            desc: "Une fête, des bugs et un enquêteur : bienvenue dans Déclic ! Créé en seulement 24h sur Unity par une équipe de 6 personnes, ce jeu d'aventure vous plonge au cœur d'un village en panique. Explorez, parlez aux habitants et triomphez de mini-jeux intenses pour réparer la fête avant qu'il ne soit trop tard. <br><br><strong>Mon rôle :</strong> Conception et développement des différents mini-jeux.",
+            site: "", // Mets un lien si tu en as un, sinon laisse vide
+            github: "",
+            download: "https://trixprod.itch.io/declic000",
+            images: ["assets/declic.png","assets/declic1.png","assets/declic2.png","assets/declic3.png","assets/declic4.png"]
+        },
         'ecoflix': {
             title: "Ecoflix",
             subtitle: "Projet Universitaire",
@@ -636,13 +658,13 @@
         setTimeout(() => {
             document.getElementById('fullTitle').textContent = data.title;
             document.getElementById('fullSubtitle').textContent = data.subtitle;
-            document.getElementById('fullDesc').textContent = data.desc;
+            document.getElementById('fullDesc').innerHTML = data.desc;
 
-            // GESTION DES BOUTONS
+            // --- GESTION DES BOUTONS ---
             const btnSite = document.getElementById('modalLinkSite');
             const btnGithub = document.getElementById('modalLinkGithub');
 
-            // Lien Site
+            // 1. Gestion du bouton "Voir le site"
             if (data.site && data.site !== "") {
                 btnSite.style.display = "inline-flex";
                 btnSite.href = data.site;
@@ -650,11 +672,30 @@
                 btnSite.style.display = "none";
             }
 
-            // Lien GitHub
+            // 2. Gestion du bouton Secondaire (GitHub OU Télécharger)
+
+            // D'abord, on remet le style "GitHub" par défaut (pour les autres projets)
+            btnGithub.innerHTML = 'Code Source <i class="fab fa-github"></i>';
+            btnGithub.removeAttribute('download'); // On enlève l'attribut de téléchargement par défaut
+
             if (data.github && data.github !== "") {
+                // CAS CLASSIQUE : C'est un lien GitHub
                 btnGithub.style.display = "inline-flex";
                 btnGithub.href = data.github;
+
+            } else if (data.download && data.download !== "") {
+                // CAS TÉLÉCHARGEMENT : On transforme le bouton
+                btnGithub.style.display = "inline-flex";
+                btnGithub.href = data.download;
+                // On change le texte et l'icône
+                btnGithub.innerHTML = 'Télécharger <i class="fas fa-download"></i>';
+
+                // Si le lien est un fichier local (ex: .zip), on force le téléchargement
+                if(!data.download.startsWith('http')) {
+                    btnGithub.setAttribute('download', '');
+                }
             } else {
+                // RIEN : On cache le bouton
                 btnGithub.style.display = "none";
             }
 
