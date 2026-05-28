@@ -254,7 +254,19 @@
                     <p>Jeu de labyrinthe avec génération procédurale et interface graphique JavaFX.</p>
                 </div>
             </div>
-
+            
+            <div class="project-card" onclick="openProject('toxie')">
+                <img src="assets/toxie.png" alt="Toxie" class="project-img">
+                <div class="project-info">
+                    <div style="margin-bottom:0.5rem;">
+                        <span class="tech-tag" style="font-size:0.7rem;">TypeScript</span>
+                        <span class="tech-tag" style="font-size:0.7rem;">Projet Universitaire</span>
+                    </div>
+                    <h3 style="margin-bottom:0.5rem;">Toxie</h3>
+                    <p>Jeu multijoueur "Shoot 'em up" en temps réel avec architecture client-serveur.</p>
+                </div>
+            </div>
+            
             <div class="project-card" onclick="openProject('declic')">
                 <img src="assets/declic.png" alt="Declic" class="project-img">
                 <div class="project-info">
@@ -318,17 +330,6 @@
                 </div>
             </div>
 
-            <div class="project-card" onclick="openProject('timetime')">
-                <img src="assets/TimeTime.png" alt="Labyrinthe" class="project-img">
-                <div class="project-info">
-                    <div style="margin-bottom:0.5rem;">
-                        <span class="tech-tag" style="font-size:0.7rem;">Ijava</span>
-                        <span class="tech-tag" style="font-size:0.7rem;">Projet Universitaire</span>
-                    </div>
-                    <h3 style="margin-bottom:0.5rem;">Time Time</h3>
-                    <p>Conception d'un jeu ludopédagogique en Ijava, une variante de Java.</p>
-                </div>
-            </div>
 
         </div>
 
@@ -575,67 +576,184 @@
     const projectsData = {
         'labyrinthe': {
             title: "Le Labyrinthe",
-            subtitle: "Projet Universitaire",
+            subtitle: "Projet Universitaire (SAÉ)",
             tags: ["Java","JavaFX", "HTML","CSS","Algorithme", "MVC"],
-            desc: "LABYRINTHE – Défis et réflexion. Explorez des labyrinthes générés dynamiquement dans ce jeu de réflexion en vue 2D. Plusieurs modes de jeu s’offrent à vous : progression, labyrinthe du jour et contre-la-montre, chacun proposant ses propres règles et contraintes. L’objectif est simple en apparence : trouver la sortie, mais la difficulté augmente avec la taille, la densité des murs et la pression du temps. Développé en Java avec JavaFX à l’IUT de Lille par groupe de 5 étudiants en 2 mois, ce projet met l’accent sur la génération procédurale, la stratégie de déplacement et la performance du joueur.",
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Réalisé dans le cadre d'une SAÉ en groupe de 5 étudiants sur deux mois, ce projet avait pour but de concevoir un jeu de réflexion en 2D. Notre objectif principal était de générer des labyrinthes de manière dynamique et de proposer plusieurs modes de jeu, comme un mode progression ou un contre-la-montre.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>Au sein de l'équipe, j'ai pris en charge la conception de l'algorithme de génération procédurale des niveaux ainsi que l'implémentation de la logique de déplacement du joueur.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Programmation orientée objet en Java, création de l'interface avec JavaFX, et structuration stricte du code selon l'architecture MVC.</li>
+                    <li><strong>Soft skills :</strong> Travail en équipe pour la coordination des tâches à 5, et rigueur face à la complexité des algorithmes développés.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> J'ai pris conscience de la nécessité absolue de bien séparer les données (Modèle) de l'affichage (Vue) pour maintenir un code lisible et évolutif au fil des semaines.<br><br>
+                <strong>Difficultés rencontrées :</strong> La génération d'un labyrinthe toujours "résoluble" a représenté un véritable défi algorithmique. J'ai pu surmonter ce problème en étudiant et en appliquant le principe du backtracking.</p>
+            `,
             site: "https://labyrintheweb.netlify.app/",
             github:"",
             images: ["assets/labyrinthe.png", "assets/biome_plaine.png"]
         },
+        
         'declic': {
             title: "Déclic",
-            subtitle: "Projet Personnel",
+            subtitle: "Projet Personnel (Game Jam)",
             tags: ["Unity", "C#", "2D", "Travail d'équipe"],
-            desc: "Une fête, des bugs et un enquêteur : bienvenue dans Déclic ! Créé en seulement 24h sur Unity par une équipe de 6 personnes, ce jeu d'aventure vous plonge au cœur d'un village en panique. Explorez, parlez aux habitants et triomphez de mini-jeux intenses pour réparer la fête avant qu'il ne soit trop tard. <br><br><strong>Mon rôle :</strong> Conception et développement des différents mini-jeux.",
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Créé lors d'une Game Jam en l'espace de 24 heures par une équipe de 6 personnes, Déclic est un jeu d'aventure 2D qui plonge le joueur dans un village perturbé par des bugs informatiques. L'enjeu était de réussir à concevoir, développer et livrer un prototype jouable dans un laps de temps extrêmement court.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>J'ai été entièrement responsable de la conception et du développement des différents mini-jeux qui ponctuent l'aventure principale.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Programmation en C#, prise en main rapide du moteur Unity et prototypage.</li>
+                    <li><strong>Soft skills :</strong> Gestion du stress pour respecter la deadline, communication efficace pour l'intégration de mon code avec celui des autres, et adaptabilité.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> J'ai compris l'importance d'aller à l'essentiel. Dans un contexte de temps limité, j'ai dû accepter que l'expérience utilisateur globale primait sur la perfection technique de mon code.<br><br>
+                <strong>Avec le recul :</strong> Si je devais refaire cet exercice, je simplifierais davantage l'architecture de mes mini-jeux dès le départ, afin de faciliter leur fusion avec le travail du reste de l'équipe dans les dernières heures.</p>
+            `,
             site: "",
             github: "",
             download: "https://trixprod.itch.io/declic000",
             images: ["assets/declic.png","assets/declic1.png","assets/declic2.png","assets/declic3.png","assets/declic4.png"]
         },
-        'ecoflix': {
-            title: "Ecoflix",
-            subtitle: "Projet Universitaire",
-            tags: ["HTML", "CSS"],
-            desc: "Une réponse au défi écologique du streaming. Ce projet est une maquette fonctionnelle pour un intranet Netflix respectant la charte graphique officielle mais avec une identité 'Verte' et responsable. Site entièrement Responsive sans framework CSS.",
-            site: "https://nathan-philippe.github.io/Ecoflix/",
-            github: "https://github.com/Nathan-Philippe/Ecoflix",
-            images: ["assets/ecoflix.png", "assets/accueilEco.png","assets/contactEco.png"]
-        },
+
         'neontag': {
             title: "NeonTag",
             subtitle: "Projet Personnel",
             tags: ["JavaScript", "HTML5 Canvas", "Game Design"],
-            desc: "Neon Tag est un jeu de tir tactique en 1 contre 1 jouable directement dans le navigateur, où la discrétion est votre meilleure arme. Le concept repose sur une mécanique de furtivité totale où les joueurs sont plongés dans le noir et ne révèlent leur position que lorsqu'ils décident de courir ou de tirer, créant ainsi une tension permanente entre prise de risque et stratégie. J'ai conçu et développé ce projet intégralement dans le but d'approfondir mes compétences en développement backend avec Node.js et de maîtriser les défis techniques du temps réel grâce à la technologie Socket.io. La réalisation de ce jeu m'a permis de mettre en œuvre une architecture client-serveur complète, un système de salons privés sécurisés par code pour jouer entre amis.",
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>NeonTag est un jeu de tir tactique en 1 contre 1 jouable sur navigateur. L'objectif de ce projet personnel était de créer une mécanique de furtivité totale où les joueurs sont plongés dans le noir, tout en me formant de manière autonome aux technologies réseau en temps réel.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>J'ai conçu et développé l'intégralité du projet, de la réflexion sur le game design jusqu'au déploiement de l'architecture client-serveur.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Développement backend avec Node.js, rendu graphique via HTML5 Canvas, et implémentation de WebSockets avec Socket.io pour le multijoueur.</li>
+                    <li><strong>Soft skills :</strong> Autonomie complète sur l'apprentissage de nouvelles technologies et persévérance face aux défis de la synchronisation réseau.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> Ce projet m'a permis de démystifier le développement backend et de comprendre concrètement les problématiques de latence entre plusieurs clients.<br><br>
+                <strong>Difficultés rencontrées :</strong> La synchronisation fluide des mouvements a été complexe à gérer. J'ai dû faire des recherches sur les systèmes d'interpolation pour éviter les saccades visuelles à l'écran.</p>
+            `,
             site: "https://neontag.onrender.com/",
             github: "https://github.com/Nathan-Philippe/NeonTag",
             images: ["assets/neon.png","assets/attenteTag.png","assets/partieTag.png"]
         },
+        'ecoflix': {
+            title: "Ecoflix",
+            subtitle: "Projet Universitaire",
+            tags: ["HTML", "CSS", "UI/UX", "Éco-conception"],
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Ce projet visait à concevoir une maquette fonctionnelle pour un intranet de streaming interne. L'objectif était de reprendre les codes visuels d'une plateforme célèbre tout en y intégrant une identité "verte" et responsable, le tout sans utiliser le moindre framework CSS.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>J'ai géré le développement front-end de A à Z, incluant la conception de la charte graphique et l'intégration complète et responsive des pages en HTML et CSS pur.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Intégration HTML5/CSS3, responsive design avancé (Grid et Flexbox), et notions d'éco-conception numérique.</li>
+                    <li><strong>Soft skills :</strong> Sens de l'esthétique et créativité, autonomie dans la recherche de solutions de design adaptatives.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Évolution personnelle :</strong> Ecoflix étant mon tout premier projet web, je mesure aujourd'hui le chemin parcouru. À l'époque, mon code manquait de structure, avec notamment un unique fichier CSS de 800 lignes. J'ai depuis appris à modulariser mon code à l'aide de composants et de variables CSS.<br><br>
+                <strong>Ce que j'ai appris :</strong> Cette contrainte forte de travailler "sans framework" s'est avérée extrêmement formatrice. Elle m'a obligé à comprendre les fondamentaux du CSS en profondeur, une base solide qui m'a par la suite grandement facilité l'apprentissage de technologies modernes comme React.</p>
+            `,
+            site: "https://nathan-philippe.github.io/Ecoflix/",
+            github: "https://github.com/Nathan-Philippe/Ecoflix",
+            images: ["assets/ecoflix.png", "assets/accueilEco.png","assets/contactEco.png"]
+        },
+        
         'echec': {
             title: "Jeu d'Échec",
             subtitle: "Projet Universitaire",
-            tags: ["Java", "POO", "Algorithmique","Methode Agile"],
-            desc: "Développement d'un moteur de jeu d'échecs complet en Java s'exécutant dans le terminal. Ce projet a permis d'approfondir les concepts de Programmation Orientée Objet (POO) : héritage pour les pièces, polymorphisme pour les déplacements, et gestion rigoureuse des états du plateau (échec, mat, ...). Développé en Java à l’IUT de Lille par groupe de 5 étudiants en 1 semaine avec la méthode agile",
-            site: "", // Pas de site en ligne pour un projet terminal
+            tags: ["Java", "POO", "Algorithmique", "Méthode Agile"],
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Réalisé en groupe de 5 étudiants sur une courte période d'une semaine de sprint intensif, ce projet consistait à développer un moteur de jeu d'échecs entièrement fonctionnel en Java, jouable directement dans le terminal.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>Je me suis concentré sur la validation des règles complexes du jeu, notamment les algorithmes de vérification des déplacements et la détection des situations d'échec et mat.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Programmation Orientée Objet (héritage, polymorphisme), logique algorithmique, et utilisation de Git en équipe.</li>
+                    <li><strong>Soft skills :</strong> Application de la méthode Agile (Scrum), respect strict des délais (gestion du temps) et coordination d'équipe sous pression.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> J'ai mesuré toute la puissance de l'héritage et du polymorphisme en POO, qui nous ont permis de factoriser énormément de code pour les différentes pièces de l'échiquier.<br><br>
+                <strong>Avec le recul :</strong> La gestion des états du plateau était complexe. Si c'était à refaire, j'imposerais la création de tests unitaires dès le premier jour pour éviter les régressions que nous avons subies en milieu de semaine.</p>
+            `,
+            site: "", 
             github: "https://github.com/Nathan-Philippe/Echec",
             images: ["assets/echec.jpg"]
         },
-        'timetime': {
-            title: "Time Time",
-            subtitle: "Projet Universitaire",
-            tags: ["Ijava", "Ludopédagogie", "UI/UX"],
-            desc: "Conception d'un jeu ludopédagogique en Ijava (variante simplifiée de Java). Le projet visait à créer une expérience d'apprentissage interactive centrée sur la rapidité et la réflexion. Travail sur l'ergonomie de l'interface et la courbe de progression de l'utilisateur. Développé en IJava à l’IUT de Lille par groupe de 2 étudiants",
-            site: "",
-            github: "https://github.com/Nathan-Philippe/TimeTime",
-            images: ["assets/TimeTime.png","assets/line.png"]
-        },
+        
         'sudoku': {
             title: "Sudoku Solver",
             subtitle: "Projet Personnel",
             tags: ["Python", "Backtracking", "Récursivité"],
-            desc: "Développement d'un algorithme de résolution de Sudoku utilisant la méthode du 'Backtracking'. Le programme est capable de résoudre n'importe quelle grille valide de manière quasi instantanée en explorant les possibilités par récursivité, optimisant ainsi la recherche de solution.",
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Afin de m'entraîner sur des notions algorithmiques complexes, je me suis lancé le défi de développer en Python un solveur de Sudoku. Le programme devait être capable de résoudre de manière quasi instantanée n'importe quelle grille valide, peu importe son niveau de difficulté.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>J'ai mené ce projet en totale autonomie, de la réflexion mathématique jusqu'à l'implémentation finale du code en Python.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> Programmation Python, maîtrise de la récursivité, et implémentation de l'algorithme de backtracking.</li>
+                    <li><strong>Soft skills :</strong> Résolution de problèmes complexes, logique mathématique et persévérance.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> Ce projet a été un excellent moyen de démystifier les appels récursifs, une notion souvent difficile à appréhender. Il m'a appris à conceptualiser un arbre de possibilités mentalement.<br><br>
+                <strong>Avec le recul :</strong> Bien que le code fonctionne parfaitement, l'optimisation des performances sur des grilles difficiles m'a poussé à revoir ma façon d'organiser mes vérifications de colonnes et de lignes pour réduire le temps de calcul.</p>
+            `,
             site: "",
             github: "https://github.com/Nathan-Philippe/SudokuSolver",
             images: ["assets/sudoku.svg"]
+        },
+
+        'toxie': {
+            title: "Toxie (Shoot 'em up Multijoueur)",
+            subtitle: "Projet Universitaire (SAÉ)",
+            tags: ["TypeScript", "Node.js", "Socket.io", "SQLite", "Canvas", "Architecture Client-Serveur"],
+            desc: `
+                <h4>Contexte et Objectifs</h4>
+                <p>Réalisé dans le cadre d'une SAÉ en équipe de 3, Toxie est un jeu de type "shoot 'em up" en ligne et multijoueur. L'objectif était de développer de zéro un jeu fluide en temps réel avec un système de salons (rooms), une base de données pour les scores et une physique gérée entièrement par le serveur.</p>
+                
+                <h4>Mon rôle</h4>
+                <p>J'ai activement participé à l'architecture client-serveur (Serveur Autoritaire), à la structuration du code front-end (séparation des Vues et Managers selon les principes KISS/DRY), ainsi qu'à la création de fonctionnalités complexes comme le système de pause multijoueur synchronisé et le tableau des scores dynamique.</p>
+                
+                <h4>Compétences mobilisées</h4>
+                <ul>
+                    <li><strong>Hard skills :</strong> TypeScript, communication temps réel (Socket.io), gestion de base de données (SQLite), et manipulation du Canvas HTML5 pour le rendu de boucle de jeu à 60 FPS.</li>
+                    <li><strong>Soft skills :</strong> Refactoring de code, résolution de bugs asynchrones complexes, et travail collaboratif via Git/GitLab.</li>
+                </ul>
+
+                <h4>Analyse réflexive</h4>
+                <p><strong>Ce que j'ai appris :</strong> J'ai découvert les véritables défis du développement réseau. J'ai compris l'importance de faire tourner la logique métier côté serveur pour éviter la triche, et de laisser au client le simple rôle d'afficheur (rendu).<br><br>
+                <strong>Difficultés rencontrées :</strong> La synchronisation de la pause entre plusieurs joueurs a été un réel défi technique. Je l'ai résolu en implémentant un système de "vote" côté serveur et en suspendant temporairement les calculs physiques de la boucle d'Update.</p>
+            `,
+            site: "", // Mets un lien si le jeu est hébergé quelque part !
+            github: "https://gitlab.univ-lille.fr/jsae/2025-2026/projets/groupe-h/equipe-2/equipe-2",
+            images: ["assets/toxie2.png", "assets/toxie3.png", "assets/toxie4.png", "assets/toxie5.png", "assets/toxie6.png", "assets/toxie7.png", "assets/toxie8.png"] // N'oublie pas de mettre des captures d'écran dans tes assets !
         }
     };
 
@@ -698,8 +816,14 @@
             // Galerie
             const gallery = document.getElementById('fullGallery');
             gallery.innerHTML = "";
-            data.images.forEach(img => {
-                gallery.innerHTML += `<img src="${img}" class="modal-img-full" alt="Projet">`;
+            data.images.forEach(media => {
+                // Si le nom du fichier se termine par .mp4 ou .webm, on crée une vidéo
+                if (media.endsWith('.mp4') || media.endsWith('.webm')) {
+                    gallery.innerHTML += `<video src="${media}" class="modal-img-full" controls autoplay muted loop style="object-fit: cover;"></video>`;
+                } else {
+                    // Sinon, on crée une image classique
+                    gallery.innerHTML += `<img src="${media}" class="modal-img-full" alt="Projet">`;
+                }
             });
             gallery.scrollTop = 0;
 
